@@ -5,14 +5,14 @@ from timestamp import Timestamp
 
 
 def degangle_to_radians(angle: str):
-    s = angle.split(" ")
+    s = angle.strip().split(" ")
     sign = 1 if int(s[0]) >= 0 else -1
 
     return (2.0*math.pi)/360.0 * (abs(int(s[0])) + int(s[1])/60.0 + float(s[2])/3600.0) * sign
 
 
 def hourangle_to_radians(angle: str):
-    s = angle.split(" ")
+    s = angle.strip().split(" ")
 
     return (2.0 * math.pi) / 24.0 * (abs(int(s[0])) + int(s[1]) / 60.0 + float(s[2]) / 3600.0)
 
@@ -25,9 +25,10 @@ class ObservationPoint(NamedTuple):
 
 
 class Observations:
-    points = []
+    points: [ObservationPoint]
 
     def __init__(self, fname):
+        self.points = []
         f = open(fname)
         while(f.readline() != "$$SOE\n"):
             pass

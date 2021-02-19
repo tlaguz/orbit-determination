@@ -1,5 +1,7 @@
 from typing import NamedTuple
 
+import numpy as np
+
 from timestamp import Timestamp
 
 
@@ -13,11 +15,16 @@ class EarthPoint(NamedTuple):
     VZ: float
     interpolated: bool
 
+    #  Distance between Sun and the Earth
+    def R(self):
+        return np.sqrt(self.X**2 + self.Y**2 + self.Z**2)
+
 
 class EarthPosition:
-    points = []
+    points: [EarthPoint]
 
     def __init__(self, fname):
+        self.points = []
         f = open(fname)
         while(f.readline() != "$$SOE\n"):
             pass
@@ -37,12 +44,12 @@ class EarthPosition:
 
         f.close()
 
-    def get_position(self, tt):
+    def get_position(self, timestamp):
         point1 = 0
         point2 = 0
         # Assumes that EarthPoints is ordered ascending by time
         for i in range(len(self.points)):
-            if(self.points[i].timestamp.time > tt):
+            if(self.points[i].timestamp.tt > timestamp.tt):
                 if(i < 1):
                     raise ValueError("Timestamp out of range for Earth position. Can't interpolate.")
                 point1 = self.points[i-1]
@@ -52,13 +59,13 @@ class EarthPosition:
         if(point1 == 0):
             raise ValueError("Timestamp out of range for Earth position. Can't interpolate.")
 
-        if(point1.timestamp.time == tt):
+        if(point1.timestamp.tt == timestamp.tt):
             return point1
 
-        dt = point2.timestamp.time - point1.timestamp.time
-        dt2 = tt - point1.timestamp.time
+        dt = point2.timestamp.tt - point1.timestamp.tt
+        dt2 = timestamp.tt - point1.timestamp.tt
         return EarthPoint(
-            Timestamp(tt),
+            timestamp,
             point1.X + (point2.X - point1.X) / (dt) * dt2,
             point1.Y + (point2.Y - point1.Y) / (dt) * dt2,
             point1.Z + (point2.Z - point1.Z) / (dt) * dt2,

@@ -12,10 +12,10 @@ jd2001 = 2451910.50000  # julian date for 1 Jan 2001 00:00:00 (2000 was leap)
 
 class Timestamp:
     # time in TT representation
-    time: float
+    tt: float
 
     def __init__(self, tt: float):
-        self.time = tt
+        self.tt = tt
 
     @staticmethod
     def create_from_ut(ut):
