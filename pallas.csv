@@ -1,0 +1,129 @@
+*******************************************************************************
+JPL/HORIZONS                 2 Pallas (A802 FA)            2021-Feb-19 10:39:26
+Rec #:       2 (+COV) Soln.date: 2020-Nov-13_04:34:32   # obs: 8516 (1804-2020)
+ 
+IAU76/J2000 helio. ecliptic osc. elements (au, days, deg., period=Julian yrs):
+ 
+  EPOCH=  2449869.5 ! 1995-Jun-01.00 (TDB)         Residual RMS= .36646
+   EC= .2338676500676366   QR= 2.123202293266447   TP= 2449888.2381554144
+   OM= 173.2995312603382   W=  309.6980177932602   IN= 34.80686189209164
+   A= 2.771325729103973    MA= 355.9968713272534   ADIST= 3.419449164941499
+   PER= 4.6136             N= .213635146           ANGMOM= .027842704
+   DAN= 2.27927            DDN= 3.07982            L= 128.614488
+   B= -26.0525293          MOID= 1.22307003        TP= 1995-Jun-19.7381554144
+ 
+Asteroid physical parameters (km, seconds, rotational period in hours):
+   GM= 14.3                RAD= 272.5              ROTPER= 7.8132
+   H= 4.2                  G= .110                 B-V= .635
+                           ALBEDO= .101            STYP= B
+ 
+ASTEROID comments: 
+1: soln ref.= JPL#38, OCC=0
+2: source=ORB
+*******************************************************************************
+ 
+ 
+*******************************************************************************
+Ephemeris / WWW_USER Fri Feb 19 10:39:26 2021 Pasadena, USA      / Horizons    
+*******************************************************************************
+Target body name: 2 Pallas (A802 FA)              {source: JPL#38}
+Center body name: Earth (399)                     {source: DE431}
+Center-site name: GEOCENTRIC
+*******************************************************************************
+Start time      : A.D. 2019-Feb-01 00:00:00.0000 UT      
+Stop  time      : A.D. 2019-Apr-01 00:00:00.0000 UT      
+Step-size       : 20160 minutes
+*******************************************************************************
+Target pole/equ : IAU                             {West-longitude positive}
+Target radii    : 275.0 x 258.0 x 238.0 km        {Equator, meridian, pole}    
+Center geodetic : 0.00000000,0.00000000,0.0000000 {E-lon(deg),Lat(deg),Alt(km)}
+Center cylindric: 0.00000000,0.00000000,0.0000000 {E-lon(deg),Dxy(km),Dz(km)}
+Center pole/equ : High-precision EOP model        {East-longitude positive}
+Center radii    : 6378.1 x 6378.1 x 6356.8 km     {Equator, meridian, pole}    
+Target primary  : Sun
+Vis. interferer : MOON (R_eq= 1737.400) km        {source: DE431}
+Rel. light bend : Sun, EARTH                      {source: DE431}
+Rel. lght bnd GM: 1.3271E+11, 3.9860E+05 km^3/s^2                              
+Small-body perts: Yes                             {source: SB431-N16}
+Atmos refraction: NO (AIRLESS)
+RA format       : HMS
+Time format     : CAL 
+EOP file        : eop.210218.p210512                                           
+EOP coverage    : DATA-BASED 1962-JAN-20 TO 2021-FEB-18. PREDICTS-> 2021-MAY-11
+Units conversion: 1 au= 149597870.700 km, c= 299792.458 km/s, 1 day= 86400.0 s 
+Table cut-offs 1: Elevation (-90.0deg=NO ),Airmass (>38.000=NO), Daylight (NO )
+Table cut-offs 2: Solar elongation (  0.0,180.0=NO ),Local Hour Angle( 0.0=NO )
+Table cut-offs 3: RA/DEC angular rate (     0.0=NO )                           
+Table format    : Comma Separated Values (spreadsheet)
+*******************************************************************************
+Initial IAU76/J2000 heliocentric ecliptic osculating elements (au, days, deg.):
+  EPOCH=  2449869.5 ! 1995-Jun-01.00 (TDB)         Residual RMS= .36646        
+   EC= .2338676500676366   QR= 2.123202293266447   TP= 2449888.2381554144      
+   OM= 173.2995312603382   W=  309.6980177932602   IN= 34.80686189209164       
+  Equivalent ICRF heliocentric equatorial cartesian coordinates (au, au/d):
+   X=-9.815114508031597E-01  Y= 1.861531512070512E+00  Z=-3.012603512288387E-01
+  VX=-1.145231027883764E-02 VY=-6.046281433117158E-03 VZ= 1.974651433312627E-03
+Asteroid physical parameters (km, seconds, rotational period in hours):        
+   GM= 14.3                RAD= 272.5              ROTPER= 7.8132              
+   H= 4.2                  G= .110                 B-V= .635                   
+                           ALBEDO= .101            STYP= B                     
+*******************************************************************************
+ Date__(UT)__HR:MN, , , R.A._(ICRF), DEC__(ICRF),
+*************************************************
+$$SOE
+ 2019-Feb-01 00:00, , , 13 57 17.23, -02 08 28.2,
+ 2019-Feb-15 00:00, , , 14 06 44.82, +01 00 19.3,
+ 2019-Mar-01 00:00, , , 14 11 08.51, +05 01 33.1,
+ 2019-Mar-15 00:00, , , 14 10 00.57, +09 41 01.0,
+ 2019-Mar-29 00:00, , , 14 03 45.98, +14 28 01.3,
+$$EOE
+*******************************************************************************
+Column meaning:
+ 
+TIME
+
+  Times PRIOR to 1962 are UT1, a mean-solar time closely related to the
+prior but now-deprecated GMT. Times AFTER 1962 are in UTC, the current
+civil or "wall-clock" time-scale. UTC is kept within 0.9 seconds of UT1
+using integer leap-seconds for 1972 and later years.
+
+  Conversion from the internal Barycentric Dynamical Time (TDB) of solar
+system dynamics to the non-uniform civil UT time-scale requested for output
+has not been determined for UTC times after the next July or January 1st.
+Therefore, the last known leap-second is used as a constant over future
+intervals.
+
+  Time tags refer to the UT time-scale conversion from TDB on Earth
+regardless of observer location within the solar system, although clock
+rates may differ due to the local gravity field and no analog to "UT"
+may be defined for that location.
+
+  Any 'b' symbol in the 1st-column denotes a B.C. date. First-column blank
+(" ") denotes an A.D. date. Calendar dates prior to 1582-Oct-15 are in the
+Julian calendar system. Later calendar dates are in the Gregorian system.
+
+  NOTE: "n.a." in output means quantity "not available" at the print-time.
+ 
+ 'R.A._(ICRF), DEC__(ICRF),' =
+  Astrometric right ascension and declination of the target center with
+respect to the observing site (coordinate origin) in the reference frame of
+the planetary ephemeris (ICRF). Compensated for down-leg light-time delay
+aberration.
+
+  Units: RA  in hours-minutes-seconds of time,    HH MM SS.ff{ffff}
+         DEC in degrees-minutes-seconds of arc,  sDD MN SC.f{ffff}
+
+
+ Computations by ...
+     Solar System Dynamics Group, Horizons On-Line Ephemeris System
+     4800 Oak Grove Drive, Jet Propulsion Laboratory
+     Pasadena, CA  91109   USA
+     Information  : https://ssd.jpl.nasa.gov/
+     Documentation: https://ssd.jpl.nasa.gov/?horizons_doc
+     Connect      : https://ssd.jpl.nasa.gov/?horizons (browser)
+                    telnet ssd.jpl.nasa.gov 6775       (command-line)
+                    e-mail command interface available
+                    Script and CGI interfaces available
+     Author       : Jon.D.Giorgini@jpl.nasa.gov
+
+*******************************************************************************

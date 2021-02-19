@@ -1,9 +1,12 @@
 #!/usr/bin/python3
+import calendar
 
-from EarthPosition import EarthPosition
+from earthposition import EarthPosition
+from observations import Observations
 
 earthPosition = EarthPosition("earth.csv")
+observations = Observations("pallas.csv")
 
-p = earthPosition.get_position(2458151.900000000)
+r = list(calendar.month_abbr)
 
 pass
