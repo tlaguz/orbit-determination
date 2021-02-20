@@ -38,8 +38,8 @@ class Timestamp:
 
     @staticmethod
     def create_from_jd(jd):
-        tt = jd + 32.184
-        tt = tt + 37  # leap seconds after 31 dec 2016 @todo implement for earlier dates
+        tt = jd + 32.184/(24*60*60)
+        tt = tt + 37/(24*60*60)  # leap seconds after 31 dec 2016 @todo implement for earlier dates
         return Timestamp.create_from_tt(tt)
 
     @staticmethod

@@ -14,7 +14,7 @@ def degangle_to_radians(angle: str):
 def hourangle_to_radians(angle: str):
     s = angle.strip().split(" ")
 
-    return (2.0 * math.pi) / 24.0 * (abs(int(s[0])) + int(s[1]) / 60.0 + float(s[2]) / 3600.0)
+    return (2.0 * math.pi) / 24.0 * (int(s[0]) + int(s[1]) / 60.0 + float(s[2]) / 3600.0)
 
 
 class ObservationPoint(NamedTuple):
