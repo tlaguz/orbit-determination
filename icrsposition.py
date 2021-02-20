@@ -56,18 +56,22 @@ class IcrsPosition:
         obs = self.observations.points[i+n-1]
         earthpos = self.earth_position.get_position(obs.timestamp)
 
-        matrix = np.matrix([self.lambda_vector(i), np.array([earthpos.X, earthpos.Y, earthpos.Z]), self.lambda_vector(k)])
+        matrix = np.array([self.lambda_vector(i), np.array([earthpos.X, earthpos.Y, earthpos.Z]), self.lambda_vector(k)])
         return np.linalg.det(matrix)
 
     #  Returns auxiliary variable A
     def A_aux(self, ijk):
         (i, j, k) = ijk
         tt1 = self.observations.points[i].timestamp.tt
+        tt2 = self.observations.points[j].timestamp.tt
         tt3 = self.observations.points[k].timestamp.tt
 
+        tau1 = tt2 - tt1
+        tau3 = tt3 - tt2
+
         return 1.0/self.lambda_det(ijk) * (
-                self.d_det(ijk, 1) * (tt3) / (tt3 + tt1) +
-                self.d_det(ijk, 3) * (tt1) / (tt3 + tt1) -
+                self.d_det(ijk, 1) * (tau3) / (tau3 + tau1) +
+                self.d_det(ijk, 3) * (tau1) / (tau3 + tau1) -
                 self.d_det(ijk, 2)
         )
 
@@ -75,11 +79,15 @@ class IcrsPosition:
     def B_aux(self, ijk):
         (i, j, k) = ijk
         tt1 = self.observations.points[i].timestamp.tt
+        tt2 = self.observations.points[j].timestamp.tt
         tt3 = self.observations.points[k].timestamp.tt
 
+        tau1 = tt2 - tt1
+        tau3 = tt3 - tt2
+
         return 1.0 / self.lambda_det(ijk) * (
-                self.d_det(ijk, 1) * (tt3) / (tt3 + tt1) * (Consts.GM * (2 * tt3 * tt1 + tt1**2)) / (6) +
-                self.d_det(ijk, 3) * (tt1) / (tt3 + tt1) * (Consts.GM * (2 * tt3 * tt1 + tt3**2)) / (6)
+                self.d_det(ijk, 1) * (tau3) / (tau3 + tau1) * (Consts.GM * (2 * tau3 * tau1 + tau1**2)) / (6) +
+                self.d_det(ijk, 3) * (tau1) / (tau3 + tau1) * (Consts.GM * (2 * tau3 * tau1 + tau3**2)) / (6)
         )
 
     def abs_N(self, ijk):
@@ -115,7 +123,6 @@ class IcrsPosition:
         return (-self.B_aux(ijk) * np.sin(self.alpha(ijk))) / (R2 ** 4 * np.sin(self.psi_angle(j)) ** 4)
 
     def gauss_equation(self, ijk, phi, marg = None, alphaarg = None):
-        (i, j, k) = ijk
         m = marg or self.m_aux(ijk)
         alpha = alphaarg or self.alpha(ijk)
 
@@ -129,9 +136,19 @@ class IcrsPosition:
 
     #  Returns angle value in radians between Sun and Earth (Sun-Object-Earth) for three given observations
     def phi_angle(self, ijk):
-        N = self.abs_N(ijk)
-        B_aux = self.B_aux(ijk)
-        if(N*B_aux < 0):
-            N = -N
+        (i, j, k) = ijk
+        solutions = self.solve_gauss_equation(ijk)
 
-        return (N*np.sin(self.phi_angle(ijk)))**(1/4)
+        # removing unphysical solution
+        drop = 0
+        atvalue = np.pi-self.psi_angle(j)
+        diff = abs(solutions[0] - atvalue)
+        for i in range(1,len(solutions)):
+            ndiff = abs(solutions[1] - atvalue)
+            if ndiff < diff:
+                drop = i
+                diff = ndiff
+
+        del solutions[drop]
+
+        return solutions
