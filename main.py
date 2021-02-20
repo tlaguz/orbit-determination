@@ -19,6 +19,9 @@ if len(sys.argv) != 5:
     print("with: UT date, RA(ICRF), DEC(ICRF) each,")
     print("and i j and k are three observation numbers from [obs_file]")
     print("which will be used for orbit determination.")
+    print()
+    print("The program has built in Earth ephemeris for dates 01.01.2018 - 01.01.2021.")
+    print("Only dates after 31.12.2016 are properly calculated (see: timestamp.py line 42).")
 
     quit(0)
 

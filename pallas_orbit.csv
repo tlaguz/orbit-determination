@@ -1,0 +1,134 @@
+*******************************************************************************
+JPL/HORIZONS                 2 Pallas (A802 FA)            2021-Feb-20 09:48:46
+Rec #:       2 (+COV) Soln.date: 2020-Nov-13_04:34:32   # obs: 8516 (1804-2020)
+
+IAU76/J2000 helio. ecliptic osc. elements (au, days, deg., period=Julian yrs):
+
+  EPOCH=  2449869.5 ! 1995-Jun-01.00 (TDB)         Residual RMS= .36646
+   EC= .2338676500676366   QR= 2.123202293266447   TP= 2449888.2381554144
+   OM= 173.2995312603382   W=  309.6980177932602   IN= 34.80686189209164
+   A= 2.771325729103973    MA= 355.9968713272534   ADIST= 3.419449164941499
+   PER= 4.6136             N= .213635146           ANGMOM= .027842704
+   DAN= 2.27927            DDN= 3.07982            L= 128.614488
+   B= -26.0525293          MOID= 1.22307003        TP= 1995-Jun-19.7381554144
+
+Asteroid physical parameters (km, seconds, rotational period in hours):
+   GM= 14.3                RAD= 272.5              ROTPER= 7.8132
+   H= 4.2                  G= .110                 B-V= .635
+                           ALBEDO= .101            STYP= B
+
+ASTEROID comments:
+1: soln ref.= JPL#38, OCC=0
+2: source=ORB
+*******************************************************************************
+
+
+*******************************************************************************
+Ephemeris / WWW_USER Sat Feb 20 09:48:46 2021 Pasadena, USA      / Horizons
+*******************************************************************************
+Target body name: 2 Pallas (A802 FA)              {source: JPL#38}
+Center body name: Solar System Barycenter (0)     {source: DE431}
+Center-site name: BODY CENTER
+*******************************************************************************
+Start time      : A.D. 2019-Feb-01 00:00:00.0000 TDB
+Stop  time      : A.D. 2019-Apr-01 00:00:00.0000 TDB
+Step-size       : 20160 minutes
+*******************************************************************************
+Center geodetic : 0.00000000,0.00000000,0.0000000 {E-lon(deg),Lat(deg),Alt(km)}
+Center cylindric: 0.00000000,0.00000000,0.0000000 {E-lon(deg),Dxy(km),Dz(km)}
+Center radii    : (undefined)
+Keplerian GM    : 2.9630927492415936E-04 au^3/d^2
+Small perturbers: Yes                             {source: SB431-N16}
+Output units    : AU-D, deg, Julian Day Number (Tp)
+Output type     : GEOMETRIC osculating elements
+Output format   : 10
+Reference frame : Ecliptic of J2000.0
+*******************************************************************************
+Initial IAU76/J2000 heliocentric ecliptic osculating elements (au, days, deg.):
+  EPOCH=  2449869.5 ! 1995-Jun-01.00 (TDB)         Residual RMS= .36646
+   EC= .2338676500676366   QR= 2.123202293266447   TP= 2449888.2381554144
+   OM= 173.2995312603382   W=  309.6980177932602   IN= 34.80686189209164
+  Equivalent ICRF heliocentric equatorial cartesian coordinates (au, au/d):
+   X=-9.815114508031597E-01  Y= 1.861531512070512E+00  Z=-3.012603512288387E-01
+  VX=-1.145231027883764E-02 VY=-6.046281433117158E-03 VZ= 1.974651433312627E-03
+Asteroid physical parameters (km, seconds, rotational period in hours):
+   GM= 14.3                RAD= 272.5              ROTPER= 7.8132
+   H= 4.2                  G= .110                 B-V= .635
+                           ALBEDO= .101            STYP= B
+*******************************************************************************
+JDTDB
+   EC    QR   IN
+   OM    W    Tp
+   N     MA   TA
+   A     AD   PR
+*******************************************************************************
+$$SOE
+2458515.500000000 = A.D. 2019-Feb-01 00:00:00.0000 TDB
+ EC= 2.279826134822827E-01 QR= 2.137081654627620E+00 IN= 3.484490199462289E+01
+ OM= 1.729050494271175E+02 W = 3.101538425995342E+02 Tp=  2458320.918970253319
+ N = 2.141431578519264E-01 MA= 4.166819616800422E+01 TA= 6.314285590113914E+01
+ A = 2.768178142032784E+00 AD= 3.399274629437948E+00 PR= 1.681118386462430E+03
+2458529.500000000 = A.D. 2019-Feb-15 00:00:00.0000 TDB
+ EC= 2.278802317811211E-01 QR= 2.136610902722971E+00 IN= 3.485030940533220E+01
+ OM= 1.729076283521021E+02 W = 3.100715005410409E+02 Tp=  2458320.695598300081
+ N = 2.142565474942283E-01 MA= 4.473771020985663E+01 TA= 6.712401109749078E+01
+ A = 2.767201398886201E+00 AD= 3.397791895049430E+00 PR= 1.680228698773828E+03
+2458543.500000000 = A.D. 2019-Mar-01 00:00:00.0000 TDB
+ EC= 2.278191959508941E-01 QR= 2.136083185639821E+00 IN= 3.485542782917827E+01
+ OM= 1.729107284031689E+02 W = 3.099884762918171E+02 Tp=  2458320.478333031293
+ N = 2.143613654653574E-01 MA= 4.780722905979722E+01 TA= 7.100507539329203E+01
+ A = 2.766299258462245E+00 AD= 3.396515331284668E+00 PR= 1.679407104066890E+03
+2458557.500000000 = A.D. 2019-Mar-15 00:00:00.0000 TDB
+ EC= 2.277973116336998E-01 QR= 2.135503912871802E+00 IN= 3.486024393715974E+01
+ OM= 1.729142774669714E+02 W = 3.099061373299164E+02 Tp=  2458320.271460196469
+ N = 2.144577088414837E-01 MA= 5.087548911811358E+01 TA= 7.478609796468680E+01
+ A = 2.765470704834958E+00 AD= 3.395437496798114E+00 PR= 1.678652644126184E+03
+2458571.500000000 = A.D. 2019-Mar-29 00:00:00.0000 TDB
+ EC= 2.278118792415334E-01 QR= 2.134879074481746E+00 IN= 3.486474912100780E+01
+ OM= 1.729182052547971E+02 W = 3.098256657948151E+02 Tp=  2458320.078595663887
+ N = 2.145457959977574E-01 MA= 5.394140532420349E+01 TA= 7.846785952808334E+01
+ A = 2.764713697466369E+00 AD= 3.394548320450991E+00 PR= 1.677963431190994E+03
+$$EOE
+*******************************************************************************
+Coordinate system description:
+
+  Ecliptic at the standard reference epoch
+
+    Reference epoch: J2000.0
+    X-Y plane: adopted Earth orbital plane at the reference epoch
+               Note: obliquity of 84381.448 arcseconds (IAU76) wrt ICRF equator
+    X-axis   : ICRF
+    Z-axis   : perpendicular to the X-Y plane in the directional (+ or -) sense
+               of Earth's north pole at the reference epoch.
+
+  Symbol meaning [1 au= 149597870.700 km, 1 day= 86400.0 s]:
+
+    JDTDB    Julian Day Number, Barycentric Dynamical Time
+      EC     Eccentricity, e
+      QR     Periapsis distance, q (au)
+      IN     Inclination w.r.t X-Y plane, i (degrees)
+      OM     Longitude of Ascending Node, OMEGA, (degrees)
+      W      Argument of Perifocus, w (degrees)
+      Tp     Time of periapsis (Julian Day Number)
+      N      Mean motion, n (degrees/day)
+      MA     Mean anomaly, M (degrees)
+      TA     True anomaly, nu (degrees)
+      A      Semi-major axis, a (au)
+      AD     Apoapsis distance (au)
+      PR     Sidereal orbit period (day)
+
+Geometric states/elements have no aberrations applied.
+
+
+ Computations by ...
+     Solar System Dynamics Group, Horizons On-Line Ephemeris System
+     4800 Oak Grove Drive, Jet Propulsion Laboratory
+     Pasadena, CA  91109   USA
+     Information  : https://ssd.jpl.nasa.gov/
+     Documentation: https://ssd.jpl.nasa.gov/?horizons_doc
+     Connect      : https://ssd.jpl.nasa.gov/?horizons (browser)
+                    telnet ssd.jpl.nasa.gov 6775       (command-line)
+                    e-mail command interface available
+                    Script and CGI interfaces available
+     Author       : Jon.D.Giorgini@jpl.nasa.gov
+*******************************************************************************
