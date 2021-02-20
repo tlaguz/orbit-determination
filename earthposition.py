@@ -15,6 +15,9 @@ class EarthPoint(NamedTuple):
     VZ: float
     interpolated: bool
 
+    def R_vector(self):
+        return np.array([self.X, self.Y, self.Z])
+
     #  Distance between Sun and the Earth
     def R(self):
         return np.sqrt(self.X**2 + self.Y**2 + self.Z**2)

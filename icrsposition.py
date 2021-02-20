@@ -1,9 +1,26 @@
+from typing import NamedTuple
+
 import numpy as np
 
 from brutezerofinder import BruteZeroFinder
 from consts import Consts
 from earthposition import EarthPosition
-from observations import Observations
+from observations import Observations, ObservationPoint
+
+
+class IcrsPoint(NamedTuple):
+    observation: ObservationPoint
+    earth_position: EarthPosition
+
+    lambda_vector: np.array
+    R_vector: np.array
+    rho_vector: np.array
+    r_vector: np.array
+
+    psi_angle: float
+    phi_angle: float
+    n1: float
+    n3: float
 
 
 class IcrsPosition:
@@ -90,6 +107,7 @@ class IcrsPosition:
                 self.d_det(ijk, 3) * (tau1) / (tau3 + tau1) * (Consts.GM * (2 * tau3 * tau1 + tau3**2)) / (6)
         )
 
+    #  Returns absolute value of arbitrary, auxiliary variable N
     def abs_N(self, ijk):
         (i, j, k) = ijk
         obsj = self.observations.points[j]
@@ -98,6 +116,7 @@ class IcrsPosition:
         psi2 = self.psi_angle(j)
         return np.sqrt(R2 ** 2 * np.sin(psi2) ** 2 + (R2 * np.cos(psi2) - self.A_aux(ijk)) ** 2)
 
+    #  Returns value in radians of arbitrary, auxiliary angle \alpha
     def alpha(self, ijk):
         (i, j, k) = ijk
         obsj = self.observations.points[j]
@@ -122,7 +141,9 @@ class IcrsPosition:
 
         return (-self.B_aux(ijk) * np.sin(self.alpha(ijk))) / (R2 ** 4 * np.sin(self.psi_angle(j)) ** 4)
 
-    def gauss_equation(self, ijk, phi, marg = None, alphaarg = None):
+    #  Returns value of the gauss equation for three given observations i, j, k.
+    #    phi is the equation's argument and marq and alphaarg can be provided externally for optimization purposes.
+    def gauss_equation(self, ijk, phi, marg=None, alphaarg=None):
         m = marg or self.m_aux(ijk)
         alpha = alphaarg or self.alpha(ijk)
 
@@ -134,7 +155,8 @@ class IcrsPosition:
         alpha = self.alpha(ijk)
         return BruteZeroFinder.find_zeroes(0, np.pi, 10**-5, lambda x: self.gauss_equation(ijk, x, m, alpha))
 
-    #  Returns angle value in radians between Sun and Earth (Sun-Object-Earth) for three given observations
+    #  Returns angle values in radians between Sun and Earth (Sun-Object-Earth) for three given observations i, j, k.
+    #    The angle values are for observation j
     def phi_angle(self, ijk):
         (i, j, k) = ijk
         solutions = self.solve_gauss_equation(ijk)
@@ -143,7 +165,7 @@ class IcrsPosition:
         drop = 0
         atvalue = np.pi-self.psi_angle(j)
         diff = abs(solutions[0] - atvalue)
-        for i in range(1,len(solutions)):
+        for i in range(1, len(solutions)):
             ndiff = abs(solutions[1] - atvalue)
             if ndiff < diff:
                 drop = i
@@ -152,3 +174,102 @@ class IcrsPosition:
         del solutions[drop]
 
         return solutions
+
+    def position(self, ijk, phi2_angle):
+        (i, j, k) = ijk
+
+        obsi = self.observations.points[i]
+        obsj = self.observations.points[j]
+        obsk = self.observations.points[k]
+
+        earthposi = self.earth_position.get_position(obsi.timestamp)
+        earthposj = self.earth_position.get_position(obsj.timestamp)
+        earthposk = self.earth_position.get_position(obsk.timestamp)
+
+        tt1 = obsi.timestamp.tt
+        tt2 = obsj.timestamp.tt
+        tt3 = obsk.timestamp.tt
+        tau1 = tt2 - tt1
+        tau3 = tt3 - tt2
+
+        lambda1_vector = self.lambda_vector(i)
+        lambda2_vector = self.lambda_vector(j)
+        lambda3_vector = self.lambda_vector(k)
+
+        rho2 = earthposj.R()*(np.sin(self.psi_angle(j) + phi2_angle))/(np.sin(phi2_angle))
+        rho2_vector = rho2*lambda2_vector
+        r2_vector = rho2_vector + earthposj.R_vector()
+        r2 = np.linalg.norm(r2_vector)
+
+        n1 = (tau1)/(tau3+tau1)*(1+(Consts.GM*(tau3**2 + 2*tau3*tau1))/(6*r2 ** 3))
+        n3 = (tau3)/(tau3+tau1)*(1+(Consts.GM*(tau1**2 + 2*tau3*tau1))/(6*r2 ** 3))
+
+        R_vecor = n3*earthposi.R_vector() + n1*earthposk.R_vector() - earthposj.R_vector()
+        Lambda_matrix = np.array([lambda1_vector, lambda2_vector, lambda3_vector])
+        q_vector = np.dot(np.linalg.inv(np.transpose(Lambda_matrix)), R_vecor)
+
+        rho1 = -q_vector[0] / n3
+        rho1_vector = rho1 * lambda1_vector
+        rho3 = -q_vector[2] / n1
+        rho3_vector = rho3 * lambda3_vector
+
+        r1_vector = rho1_vector + earthposi.R_vector()
+        r3_vector = rho3_vector + earthposk.R_vector()
+
+        phi1_angle = np.arcsin(earthposi.R()/np.linalg.norm(r1_vector) * np.sin(self.psi_angle(i)))
+        phi3_angle = np.arcsin(earthposk.R() / np.linalg.norm(r3_vector) * np.sin(self.psi_angle(k)))
+
+        result = []
+
+        result.append(IcrsPoint(
+            obsi,
+            earthposi,
+            lambda1_vector,
+            earthposi.R_vector(),
+            rho1_vector,
+            r1_vector,
+            self.psi_angle(i),
+            phi1_angle,
+            n1,
+            n3
+        ))
+
+        result.append(IcrsPoint(
+            obsj,
+            earthposj,
+            lambda2_vector,
+            earthposj.R_vector(),
+            rho2_vector,
+            r2_vector,
+            self.psi_angle(j),
+            phi2_angle,
+            n1,
+            n3
+        ))
+
+        result.append(IcrsPoint(
+            obsk,
+            earthposk,
+            lambda3_vector,
+            earthposk.R_vector(),
+            rho3_vector,
+            r3_vector,
+            self.psi_angle(k),
+            phi3_angle,
+            n1,
+            n3
+        ))
+
+        return result
+
+    #  Returns complete solution sets of position, for three given observations i, j, k
+    #    i.e. array of possible solutions where each one is a position for i, j, k observations respectively
+    def positions(self, ijk):
+        result = []
+
+        phi_angles = self.phi_angle(ijk)
+        for phi in phi_angles:
+            result.append(self.position(ijk, phi))
+
+        return result
+
